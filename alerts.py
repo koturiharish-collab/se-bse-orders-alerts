@@ -230,13 +230,11 @@ def main():
         seen_list.append(a["id"])
 
     if first_run:
-        log(f"First run: seeding {len(new)} items without alerting.")
-        save_seen(seen_list)
+        log(f"First run: {len(new)} items today; sending any order wins already published.")
         try:
-            tg_send("✅ Order-win alert bot is live. You'll get alerts for NSE/BSE order announcements.")
+            tg_send("✅ Order-win alert bot is live. Sending today's order announcements so far, then new ones as they appear.")
         except Exception as e:
             log("Startup message failed:", e)
-        return 0
 
     hits = []
     for a in new:
