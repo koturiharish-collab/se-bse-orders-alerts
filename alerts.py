@@ -21,8 +21,8 @@ STATE_FILE = Path("seen.json")
 MAX_SEEN = 5000
 MAX_ALERTS_PER_RUN = 25  # safety cap against floods
 
-BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "")
-CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID", "")
+BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "").strip()
+CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID", "").strip()
 
 # --- What counts as an "order win" -------------------------------------------
 INCLUDE = re.compile(
