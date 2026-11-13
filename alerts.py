@@ -11,6 +11,7 @@ import os
 import re
 import sys
 import time
+from collections import Counter
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
@@ -243,6 +244,16 @@ def main():
             hits.append(a)
 
     log(f"{len(new)} new, {len(hits)} order-win matches")
+
+    # Diagnostics: what categories came in, and near-misses that mention orders/contracts
+    cats = Counter(a["title"] for a in new).most_common(8)
+    log("top categories:", cats)
+    hit_ids = {h["id"] for h in hits}
+    for a in [x for x in new if x["id"] not in hit_ids][:200]:
+        blob_nm = f"{a['title']} {a['text']}"
+        if re.search(r"order|contract|award|tender|loa\b|loi\b", blob_nm, re.I):
+            snippet = re.sub(r"\s+", " ", a["text"])[:160]
+            log(f"near-miss: {a['company']} | {a['title']} | {snippet}")
     for a in hits[:MAX_ALERTS_PER_RUN]:
         try:
             tg_send(fmt(a))
