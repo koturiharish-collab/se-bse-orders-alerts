@@ -27,6 +27,8 @@ CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID", "").strip()
 # --- What counts as an "order win" -------------------------------------------
 INCLUDE = re.compile(
     r"\b("
+    r"bagging\s*/?\s*receiving|"
+    r"(receiving|receipt|award(ing)?|bagging)\s+of\s+(an?\s+)?(new\s+)?(order|contract)s?|"
     r"order(s)?\s+(win|won|received|inflow|book)|"
     r"(bagg(ed|s)|secur(ed|es)|win(s)?|won|receiv(ed|es)|awarded|grabs?|clinch(ed|es)?)"
     r"[^.]{0,60}\b(order|contract|project|tender|work)|"
